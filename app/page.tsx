@@ -1,53 +1,8 @@
 "use client";
 
-import { useState, useRef } from "react";
+import Form from "@/app/form";
 
-type Link = {
-  anchor: string,
-  slug: string
-}
-
-const InitialStateLink = {
-  anchor: "",
-  slug: "",
-}
-
-const Home = () => {
-  const [quantityChar, setQuantityChar] = useState(0);
-  const [phoneWithMask, setPhoneWithMask] = useState("");
-  const [link, setLink] = useState<Link>(InitialStateLink);
-  const phoneRef = useRef<HTMLInputElement>(null);
-  const messageRef = useRef<HTMLTextAreaElement>(null);
-
-  const onGenerateLink = () => {
-    const phone = phoneRef?.current?.value.replace(/[^0-9]+/g, "");
-    const message = messageRef?.current?.value;
-
-    const anchor = `https://wa.me/${phone}?text=${message}`;
-
-    setLink((prev) => ({ ...prev, anchor }));
-
-    handleGenerateString();
-  };
-
-  const handleGenerateString = () => {
-    const slug = Math.random().toString(36).substring(2, 8);
-    setLink((prev) => ({ ...prev, slug }));
-  };
-
-  const onCountCharacters = (value: string) => {
-    setQuantityChar(value.length);
-  };
-
-  const phoneMask = (value: string) => {
-    const newValue = value
-      .replace(/\D/g, "")
-      .replace(/(\d{2})(\d)/, "($1) $2")
-      .replace(/(\d)(\d{4})$/, "$1-$2");
-
-    setPhoneWithMask(newValue);
-  };
-
+const Home = () => { 
   return (
     <main className="flex min-h-screen bg-white">
       <section className="w-2/5 p-10">
@@ -66,52 +21,14 @@ const Home = () => {
               conversa, gere o link e compartilhe nas suas redes sociais.
             </p>
 
-            <form className="flex flex-col">
-              <div className="flex flex-col mb-8">
-                <label className="text-black font-medium text-xs mb-4">
-                  Número do WhatsApp*
-                </label>
-                <input
-                  type="text"
-                  ref={phoneRef}
-                  value={phoneWithMask}
-                  className="bg-gray-100 border-[1px] border-gray-300 text-black text-sm w-2/4 rounded-md p-2"
-                  placeholder="(00) 0 0000-0000"
-                  maxLength={15}
-                  onChange={(e) => phoneMask(e.target.value)}
-                />
-              </div>
+            <Form />
+            
 
-              <div className="flex flex-col mb-12">
-                <label className="text-black font-medium text-xs mb-4">
-                  Mensagem (Opcional)
-                </label>
-                <textarea
-                  ref={messageRef}
-                  rows={4}
-                  className="bg-gray-100 border-[1px] border-gray-300 text-black text-sm p-4 rounded-md resize-none"
-                  placeholder="Crie uma mensagem que facilite a comunicação com o seu cliente"
-                  maxLength={250}
-                  onChange={(e) => onCountCharacters(e.target.value)}
-                ></textarea>
-                <span className="text-gray-400 text-xs font-semibold mt-2 self-end">
-                  {quantityChar}/250
-                </span>
-              </div>
-            </form>
-            <button
-              className="bg-green-800 text-white p-4 rounded-md w-full text-sm"
-              type="submit"
-              onClick={onGenerateLink}
-            >
-              Gere seu link grátis
-            </button>
-
-            {link?.slug && (
+            {/* {link?.slug && (
               <a href={link?.anchor}>
                 <p className="text-green-700 text-base font-medium mt-6 underline">{`zappro.link/${link?.slug}`}</p>
               </a>
-            )}
+            )} */}
           </div>
         </div>
       </section>
