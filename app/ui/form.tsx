@@ -2,8 +2,8 @@
 
 import { useState, useRef, ChangeEvent, useEffect, useCallback } from "react";
 import { useFormState } from "react-dom";
-import { createLinkAction } from "@/app/lib/actions";
-import { useModalContext } from "@/app/contexts/modal-context";
+import { createLinkAction } from "@/lib/actions";
+import { useModalContext } from "@/contexts/modal-context";
 import { SubmitButton } from "@/app/ui/submit-button";
 
 export default function Form() {

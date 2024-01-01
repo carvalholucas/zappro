@@ -3,20 +3,27 @@
 import { useEffect } from "react";
 import { clsx } from "clsx";
 
-import { useModalContext } from "@/app/contexts/modal-context";
+import { useModalContext } from "@/contexts/modal-context";
 import { useCopyToClipboard } from "@/app/hooks/useCopyToClipboard";
+import { useToast } from "@/components/ui/use-toast";
 import Icon from "@/app/ui/icon";
 
 export default function Modal() {
   const { isOpen, link, toggleModal } = useModalContext();
   const [copiedLink, copyLink] = useCopyToClipboard();
+  const { toast } = useToast();
 
   useEffect(() => {
     if (link?.slug) toggleModal();
   }, [link]);
 
   useEffect(() => {
-    if (copiedLink !== null) console.log("Copiado com sucesso!");
+    if (copiedLink !== null) {
+      toast({
+        variant: "success",
+        description: "Link copiado com sucesso!",
+      });
+    }
   }, [copiedLink]);
 
   return (
@@ -43,7 +50,6 @@ export default function Modal() {
           qualquer outro lugar que você queira ser contatado instantaneamente
           por seus clientes!
         </p>
-
         <div className="mb-12 flex w-full items-center justify-center rounded-md bg-slate-100 p-4">
           <a
             href={link.anchor}
@@ -52,11 +58,11 @@ export default function Modal() {
             zappro.link/{link.slug}
           </a>
         </div>
-
         <button
-          className="self-center bg-transparent text-sm font-extralight text-gray-500"
+          className="flex items-center justify-center self-center bg-transparent text-sm font-light text-gray-500"
           onClick={() => copyLink(`zappro.link/${link.slug}`)}
         >
+          <Icon name="Link" size={16} className="mr-2 text-gray-400" />
           Copiar
         </button>
       </div>

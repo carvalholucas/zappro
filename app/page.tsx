@@ -2,7 +2,7 @@
 
 import Form from "@/app/ui/form";
 import Modal from "@/app/ui/modal";
-import { ModalProvider } from "@/app/contexts/modal-context";
+import { ModalProvider } from "@/contexts/modal-context";
 
 const Home = () => {
   return (
