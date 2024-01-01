@@ -1,5 +1,6 @@
 import Link from "next/link";
-import Icon from "@/app/ui/icon";
+import { X as Icon } from "lucide-react";
+// import Icon from "@/app/ui/icon";
 
 export default function NotFound() {
   return (

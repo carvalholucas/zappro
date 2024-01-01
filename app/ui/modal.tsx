@@ -2,11 +2,12 @@
 
 import { useEffect } from "react";
 import { clsx } from "clsx";
+import { X as Icon } from "lucide-react";
 
 import { useModalContext } from "@/contexts/modal-context";
 import { useCopyToClipboard } from "@/app/hooks/useCopyToClipboard";
 import { useToast } from "@/components/ui/use-toast";
-import Icon from "@/app/ui/icon";
+// import Icon from "@/app/ui/icon";
 
 export default function Modal() {
   const { isOpen, link, toggleModal } = useModalContext();
@@ -15,7 +16,7 @@ export default function Modal() {
 
   useEffect(() => {
     if (link?.slug) toggleModal();
-  }, [link]);
+  }, [link, toggleModal]);
 
   useEffect(() => {
     if (copiedLink !== null) {
@@ -24,7 +25,7 @@ export default function Modal() {
         description: "Link copiado com sucesso!",
       });
     }
-  }, [copiedLink]);
+  }, [copiedLink, toast]);
 
   return (
     <div

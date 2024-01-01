@@ -11,7 +11,7 @@ export default function Form() {
   const phoneRef = useRef<HTMLInputElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
-  const { toggleModal, setLink } = useModalContext();
+  const { setLink } = useModalContext();
 
   const initialState = { errors: {}, message: "" };
   const [state, formAction] = useFormState(createLinkAction, initialState);
@@ -40,7 +40,7 @@ export default function Form() {
       setLink(state.link);
       formRef.current?.reset();
     }
-  }, [state]);
+  }, [state, setLink]);
 
   return (
     <form ref={formRef} action={formAction} className="flex flex-col">
