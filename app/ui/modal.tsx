@@ -2,12 +2,11 @@
 
 import { useEffect } from "react";
 import { clsx } from "clsx";
-import { X as Icon } from "lucide-react";
 
 import { useModalContext } from "@/contexts/modal-context";
 import { useCopyToClipboard } from "@/app/hooks/useCopyToClipboard";
 import { useToast } from "@/components/ui/use-toast";
-// import Icon from "@/app/ui/icon";
+import Icon from "@/components/ui/icon";
 
 export default function Modal() {
   const { isOpen, link, toggleModal } = useModalContext();
