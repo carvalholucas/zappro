@@ -24,7 +24,7 @@ const FormSchema = z.object({
   great: z.string().optional(),
 });
 
-export async function fetchLinkBySlug(slug: number) {
+export async function fetchLinkBySlug(slug: string) {
   noStore();
 
   try {
@@ -60,7 +60,7 @@ export async function createLinkAction(
 
   const { number, great } = validatedFields.data;
   const slug = Math.random().toString(36).substring(2, 8);
-  const numberWithoutMask = number.replace(/[^0-9]+/g, "");
+  const numberWithoutMask = "+55".concat(number.replace(/[^0-9]+/g, ""));
 
   const link = {
     anchor: `https://wa.me/${numberWithoutMask}?text=${great}`,
@@ -70,7 +70,7 @@ export async function createLinkAction(
   try {
     await sql`
       INSERT INTO links (slug, number, message)
-      VALUES (${slug}, ${number}, ${great})
+      VALUES (${slug}, ${numberWithoutMask}, ${great})
       ON CONFLICT (slug) DO NOTHING;
    `;
   } catch (error) {
