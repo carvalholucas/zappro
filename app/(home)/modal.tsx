@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { clsx } from "clsx";
 
 import { useModalContext } from "@/contexts/modal-context";
-import { useCopyToClipboard } from "@/app/hooks/useCopyToClipboard";
+import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
 import { useToast } from "@/components/ui/use-toast";
 import Icon from "@/components/ui/icon";
 

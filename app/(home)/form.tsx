@@ -4,7 +4,10 @@ import { useState, useRef, ChangeEvent, useEffect, useCallback } from "react";
 import { useFormState } from "react-dom";
 import { createLinkAction } from "@/lib/actions";
 import { useModalContext } from "@/contexts/modal-context";
-import { SubmitButton } from "@/app/ui/submit-button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { SubmitButton } from "./submit-button";
 
 export default function Form() {
   const [charCount, setCharCount] = useState<number>(0);
@@ -43,45 +46,47 @@ export default function Form() {
   }, [state, setLink]);
 
   return (
-    <form ref={formRef} action={formAction} className="flex flex-col">
-      <div className="mb-8 flex flex-col">
-        <label className="mb-4 text-xs font-medium text-black">
-          Número do WhatsApp*
-        </label>
-        <input
+    <form
+      ref={formRef}
+      action={formAction}
+      className="flex w-1/3 -translate-y-32 flex-col rounded-xl bg-white p-8 shadow-xl"
+    >
+      <div className="mb-10 grid w-full max-w-sm items-center gap-2">
+        <Label htmlFor="number">Número do WhatsApp*</Label>
+        <Input
           type="text"
-          name="number"
-          className="w-2/4 rounded-md border-[1px] border-gray-300 bg-gray-100 p-2 text-sm text-black"
-          placeholder="(00) 0 0000-0000"
+          id="number"
+          className="bg-gray-100"
+          placeholder="Seu número de WhatsApp aqui"
           aria-describedby="number-error"
           ref={phoneRef}
           maxLength={15}
           onChange={(e) => phoneMask(e.target.value)}
         />
-        <div id="number-error" aria-live="polite" aria-atomic="true">
-          {state &&
-            state.errors?.number &&
-            state.errors.number.map((error: string) => (
-              <p className="mt-2 text-xs text-red-500" key={error}>
-                {error}
-              </p>
-            ))}
-        </div>
       </div>
 
-      <div className="mb-12 flex flex-col">
-        <label className="mb-4 text-xs font-medium text-black">
-          Mensagem (Opcional)
-        </label>
-        <textarea
-          rows={4}
+      <div id="number-error" aria-live="polite" aria-atomic="true">
+        {state &&
+          state.errors?.number &&
+          state.errors.number.map((error: string) => (
+            <p className="mt-2 text-xs text-red-500" key={error}>
+              {error}
+            </p>
+          ))}
+      </div>
+
+      <div className="mb-12 grid w-full gap-2">
+        <Label htmlFor="message">Mensagem (Opcional)</Label>
+        <Textarea
+          id="message"
           name="great"
-          className="resize-none rounded-md border-[1px] border-gray-300 bg-gray-100 p-4 text-sm text-black"
-          placeholder="Crie uma mensagem que facilite a comunicação com o seu cliente"
+          className="resize-none bg-gray-100"
+          placeholder="Deixe uma mensagem de boas vindas para facilitar a comunicação com o seu cliente"
           ref={messageRef}
-          onChange={handleCharCount}
+          rows={5}
           maxLength={250}
-        ></textarea>
+          onChange={handleCharCount}
+        />
         <span className="mt-2 self-end text-xs font-semibold text-gray-400">
           {charCount}/250
         </span>
