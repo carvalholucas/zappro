@@ -52,7 +52,7 @@ export const ModalContent = (props: ModalContentProps) => {
             href={anchor}
             className="text-2xl font-semibold text-green-700 underline"
           >
-            zappro.link/{slug}
+            zappro.vercel.app/{slug}
           </a>
         </div>
         <button
