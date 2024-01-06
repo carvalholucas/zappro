@@ -1,21 +1,25 @@
 "use client";
 
-import { useEffect } from "react";
-import { clsx } from "clsx";
+import { useEffect, useRef } from "react";
 
-import { useModalContext } from "@/contexts/modal-context";
 import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
 import { useToast } from "@/components/ui/use-toast";
 import Icon from "@/components/ui/icon";
 
-export default function Modal() {
-  const { isOpen, link, toggleModal } = useModalContext();
+type ModalContentProps = {
+  link?: {
+    anchor: string;
+    slug: string;
+  };
+  onClose: () => void | undefined;
+};
+
+export const ModalContent = (props: ModalContentProps) => {
+  const { link, onClose } = props;
   const [copiedLink, copyLink] = useCopyToClipboard();
   const { toast } = useToast();
 
-  useEffect(() => {
-    if (link?.slug) toggleModal();
-  }, [link, toggleModal]);
+  const { anchor, slug } = link || {};
 
   useEffect(() => {
     if (copiedLink !== null) {
@@ -27,18 +31,11 @@ export default function Modal() {
   }, [copiedLink, toast]);
 
   return (
-    <div
-      className={clsx(
-        "fixed left-0 top-0 flex h-full w-full items-center justify-center bg-[rgba(0,0,0,0.5)]",
-        {
-          hidden: !isOpen,
-        },
-      )}
-    >
+    <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-[rgba(0,0,0,0.5)]">
       <div className="relative flex w-[600px] flex-col items-center rounded-lg bg-white p-12">
         <button
           className="absolute right-2 top-2 rounded-2xl p-2 hover:bg-slate-100"
-          onClick={toggleModal}
+          onClick={onClose}
         >
           <Icon name="X" className="text-slate-900" size={20} />
         </button>
@@ -52,15 +49,15 @@ export default function Modal() {
         </p>
         <div className="mb-12 flex w-full items-center justify-center rounded-md bg-slate-100 p-4">
           <a
-            href={link.anchor}
+            href={anchor}
             className="text-2xl font-semibold text-green-700 underline"
           >
-            zappro.link/{link.slug}
+            zappro.link/{slug}
           </a>
         </div>
         <button
           className="flex items-center justify-center self-center bg-transparent text-sm font-light text-gray-500"
-          onClick={() => copyLink(`zappro.link/${link.slug}`)}
+          onClick={() => copyLink(`zappro.link/${slug}`)}
         >
           <Icon name="Link" size={16} className="mr-2 text-gray-400" />
           Copiar
@@ -68,4 +65,29 @@ export default function Modal() {
       </div>
     </div>
   );
-}
+};
+
+type ModalProps = {
+  isShowing?: boolean;
+  link?: {
+    anchor: string;
+    slug: string;
+  };
+  onClose: () => void;
+};
+
+const Modal = ({ isShowing, link, onClose }: ModalProps) => {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
+  useEffect(() => {
+    isShowing ? dialogRef.current?.showModal() : dialogRef.current?.close();
+  });
+
+  return (
+    <dialog ref={dialogRef}>
+      <ModalContent link={link} onClose={onClose} />
+    </dialog>
+  );
+};
+
+export default Modal;

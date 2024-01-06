@@ -1,10 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { ModalProvider } from "@/contexts/modal-context";
 import { Button } from "@/components/ui/button";
 import Form from "./form";
-import Modal from "./modal";
 import Icon from "@/components/ui/icon";
 
 const links = [
@@ -12,38 +10,6 @@ const links = [
   { name: "Comparativo", href: "/#", action: false },
   { name: "Seja premium", href: "/#", action: true },
 ];
-
-// const Home = () => {
-//   return (
-//     <ModalProvider>
-//       <main className="flex min-h-screen bg-white">
-//         <section className="w-2/5 p-10">
-//           <div className="flex h-full flex-col justify-between">
-//             <p className="text-xl font-bold text-green-600">Zappro</p>
-//             <div>
-//               <p className="mb-2 font-light text-gray-900">
-//                 Simples, rápido e fácil.
-//               </p>
-//               <h1 className="mb-16 text-2xl font-bold text-black">
-//                 Gerador de link para WhatsApp
-//               </h1>
-
-//               <p className="mb-16 font-thin leading-8 text-gray-600	">
-//                 Informe seu número de whatsapp, uma mensagem para iniciar a
-//                 conversa, gere o link e compartilhe nas suas redes sociais.
-//               </p>
-
-//               <Form />
-
-//               <Modal />
-//             </div>
-//           </div>
-//         </section>
-//         <section className="flex-1 bg-green-950"></section>
-//       </main>
-//     </ModalProvider>
-//   );
-// };
 
 const Home = () => {
   return (
@@ -98,7 +64,7 @@ const Home = () => {
 
           <Button
             variant="secondary"
-            className="mt-32 rounded-full"
+            className="mt-32 animate-bounce rounded-full"
             size="icon"
           >
             <Icon name="ArrowDown" size={24} className="text-green-950" />
