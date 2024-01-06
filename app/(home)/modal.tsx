@@ -57,7 +57,7 @@ export const ModalContent = (props: ModalContentProps) => {
         </div>
         <button
           className="flex items-center justify-center self-center bg-transparent text-sm font-light text-gray-500"
-          onClick={() => copyLink(`zappro.link/${slug}`)}
+          onClick={() => copyLink(`https://zappro.vercel.app/${slug}`)}
         >
           <Icon name="Link" size={16} className="mr-2 text-gray-400" />
           Copiar
