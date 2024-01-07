@@ -6,9 +6,9 @@ import Form from "./form";
 import Icon from "@/components/ui/icon";
 
 const links = [
-  { name: "Faq", href: "/#", action: false },
-  { name: "Comparativo", href: "/#", action: false },
-  { name: "Seja premium", href: "/#", action: true },
+  { name: "Faq", href: "/#", action: false, active: false },
+  { name: "Comparativo", href: "/#", action: false, active: false },
+  { name: "Seja premium", href: "/#", action: true, active: false },
 ];
 
 const Home = () => {
@@ -20,7 +20,7 @@ const Home = () => {
           <nav>
             <ul className="text-white">
               {links.map((link) => {
-                if (link.action) {
+                if (link.action && link.active) {
                   return (
                     <Button
                       asChild
@@ -35,15 +35,17 @@ const Home = () => {
                   );
                 }
 
-                return (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    className="ml-16 inline hover:text-green-500 hover:underline"
-                  >
-                    {link.name}
-                  </Link>
-                );
+                if (link.active) {
+                  return (
+                    <Link
+                      key={link.name}
+                      href={link.href}
+                      className="ml-16 inline hover:text-green-500 hover:underline"
+                    >
+                      {link.name}
+                    </Link>
+                  );
+                }
               })}
             </ul>
           </nav>
