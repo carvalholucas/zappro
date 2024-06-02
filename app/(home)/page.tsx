@@ -15,7 +15,7 @@ const Home = () => {
   return (
     <main>
       <section className="flex min-h-screen flex-col items-center bg-green-950">
-        <header className="mx-auto my-0 flex h-28 w-[min(100%,_1280px)] items-center justify-between px-4">
+        <header className="mx-auto my-0 flex h-28 w-[min(100%,_1280px)] items-center justify-between px-6">
           <span className="text-3xl font-bold text-green-600">Zappro</span>
           <nav>
             <ul className="text-white">
@@ -51,7 +51,7 @@ const Home = () => {
           </nav>
         </header>
 
-        <div className="mt-28 w-2/5 text-center">
+        <div className="mt-28 w-full px-6 text-center md:w-2/5">
           <p className="mb-2 text-xl font-light text-green-600">
             Simples, rápido e fácil.
           </p>

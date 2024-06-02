@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
+import Image from "next/image";
 
 import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
 import { useToast } from "@/components/ui/use-toast";
@@ -11,11 +12,11 @@ type ModalContentProps = {
     anchor: string;
     slug: string;
   };
+  src: string;
   onClose: () => void | undefined;
 };
 
-export const ModalContent = (props: ModalContentProps) => {
-  const { link, onClose } = props;
+const SuccessModal = ({ link, src, onClose }: ModalContentProps) => {
   const [copiedLink, copyLink] = useCopyToClipboard();
   const { toast } = useToast();
 
@@ -31,7 +32,7 @@ export const ModalContent = (props: ModalContentProps) => {
   }, [copiedLink, toast]);
 
   return (
-    <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-[rgba(0,0,0,0.5)]">
+    <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-[rgba(0,0,0,0.5)] ">
       <div className="relative flex w-[600px] flex-col items-center rounded-lg bg-white p-12">
         <button
           className="absolute right-2 top-2 rounded-2xl p-2 hover:bg-slate-100"
@@ -55,6 +56,11 @@ export const ModalContent = (props: ModalContentProps) => {
             zappro.vercel.app/{slug}
           </a>
         </div>
+
+        {src ? (
+          <Image src={src} width={250} height={200} alt="QRCode to link" />
+        ) : null}
+
         <button
           className="flex items-center justify-center self-center bg-transparent text-sm font-light text-gray-500"
           onClick={() => copyLink(`https://zappro.vercel.app/${slug}`)}
@@ -67,27 +73,4 @@ export const ModalContent = (props: ModalContentProps) => {
   );
 };
 
-type ModalProps = {
-  isShowing?: boolean;
-  link?: {
-    anchor: string;
-    slug: string;
-  };
-  onClose: () => void;
-};
-
-const Modal = ({ isShowing, link, onClose }: ModalProps) => {
-  const dialogRef = useRef<HTMLDialogElement>(null);
-
-  useEffect(() => {
-    isShowing ? dialogRef.current?.showModal() : dialogRef.current?.close();
-  });
-
-  return (
-    <dialog ref={dialogRef}>
-      <ModalContent link={link} onClose={onClose} />
-    </dialog>
-  );
-};
-
-export default Modal;
+export default SuccessModal;

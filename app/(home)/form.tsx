@@ -7,8 +7,8 @@ import { useToggle } from "@/hooks/useToggle";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import Modal from "@/components/ui/modal";
 import { SubmitButton } from "@/app/(home)/submit-button";
-import Modal from "@/app/(home)/modal";
 
 export default function Form() {
   const [charCount, setCharCount] = useState<number>(0);
@@ -51,7 +51,7 @@ export default function Form() {
       <form
         ref={formRef}
         action={formAction}
-        className="flex w-1/2 -translate-y-32 flex-col rounded-xl bg-white p-8 shadow-xl"
+        className="flex w-full -translate-y-32 flex-col rounded-xl bg-white p-8 shadow-xl md:w-1/2"
       >
         <div className="mb-10 grid w-full max-w-sm items-center gap-2">
           <Label htmlFor="number">Número do WhatsApp*</Label>
