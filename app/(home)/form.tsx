@@ -51,7 +51,7 @@ export default function Form() {
       <form
         ref={formRef}
         action={formAction}
-        className="flex w-full -translate-y-32 flex-col rounded-xl bg-white p-8 shadow-xl md:w-1/2"
+        className="flex w-full -translate-y-12 flex-col rounded-xl bg-white p-8 shadow-xl md:w-1/2 md:-translate-y-32"
       >
         <div className="mb-10 grid w-full max-w-sm items-center gap-2">
           <Label htmlFor="number">Número do WhatsApp*</Label>

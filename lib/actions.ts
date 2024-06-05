@@ -17,6 +17,13 @@ export type State = {
   };
 };
 
+type FaqTypes = {
+  id: number;
+  title: string;
+  description: string;
+  active: boolean;
+};
+
 const FormSchema = z.object({
   number: z.string().min(1, {
     message: "Por favor, informe um número de whatsapp válido",
@@ -79,4 +86,18 @@ export async function createLinkAction(
 
   revalidatePath("/");
   return { success: validatedFields.success, link };
+}
+
+export async function getFaq() {
+  noStore();
+
+  try {
+    const data = await sql`
+      SELECT * FROM faq
+    `;
+
+    return data.rows as FaqTypes[];
+  } catch (error) {
+    throw new Error("Failed to fetch faq");
+  }
 }
